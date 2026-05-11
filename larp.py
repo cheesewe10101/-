@@ -1,21 +1,27 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import os
+import sys
 
-BASE_DIR = os.path.dirname(__file__)
-IMG_PATH = os.path.join(BASE_DIR, "рыбка.jpeg")
+def resource_path(relative_path):
+    """ Получает абсолютный путь к ресурсам, работает и для dev, и для PyInstaller """
+    try:
+        
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+IMG_PATH = resource_path("рыбка.jpeg")
 
 def start_hardcore_prank():
     root = tk.Tk()
     
-    
     root.attributes("-fullscreen", True)
     root.attributes("-topmost", True)
-    
-    
     root.overrideredirect(True)
 
-    
+   
     root.protocol("WM_DELETE_WINDOW", lambda: None)
 
     if os.path.exists(IMG_PATH):
@@ -27,10 +33,7 @@ def start_hardcore_prank():
         label.pack()
         label.image = photo
     
-    
     root.config(cursor="none")
-
-    
     root.bind("<FocusOut>", lambda e: root.focus_force())
 
     root.mainloop()
