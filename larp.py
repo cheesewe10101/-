@@ -4,7 +4,7 @@ import os
 import sys
 
 def resource_path(relative_path):
-    """ Получает абсолютный путь к ресурсам, работает и для dev, и для PyInstaller """
+    
     try:
         
         base_path = sys._MEIPASS
