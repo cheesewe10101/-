@@ -1,0 +1,29 @@
+name: Build EXE
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install pyinstaller pillow
+       
+
+    - name: Build with PyInstaller
+      run: pyinstaller --onefile --windowed --add-data "рыбка.jpeg;." --add-data "trava.mp3;." larp.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MyWindowsApp
+        path: dist/larp.exe
